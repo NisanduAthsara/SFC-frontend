@@ -8,7 +8,6 @@ export default function(){
     const [password,setPassword] = React.useState("")
     const [token,setToken] = React.useState("")
     const [userId,setUserId] = React.useState("")
-    const [user,setUser] = React.useState({})
 
     const [isLoading,setIsLoading] = React.useState(false)
 
@@ -56,8 +55,13 @@ export default function(){
 				if(res.data.success === false){
                     setUserId("")
                 }else{
-                    setUser(res.data.user)
                     console.log(res.data.user)
+                    if(res.data.user.accountType == 'Buyer'){
+                        window.location.assign('/buyer/profile')
+                    }
+                    else if(res.data.user.accountType == 'Seller'){
+                        window.location.assign('/buyer/profile')
+                    }
                 }
 			})
 			.catch((err) => {

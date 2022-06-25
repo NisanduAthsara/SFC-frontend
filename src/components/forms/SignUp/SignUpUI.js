@@ -1,8 +1,13 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 export default function SignUpUI(props){
+    const error = props.errors
     return(
         <div>
+            <Link to="/">SignIn</Link>
+            {props.isErr && <div>{error}</div>}
+            {props.isLoading && <div>Loading...</div>}
             <form>
                 <input type="text" name="username" onChange={(e)=>{props.handleUsername(e.target.value)}}/>
                 <input type="email" name="email" onChange={(e)=>{props.handleEmail(e.target.value)}}/>

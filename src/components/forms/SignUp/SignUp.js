@@ -9,8 +9,14 @@ export default function(){
     const [password,setPassword] = React.useState("")
     const [city,setCity] = React.useState("")
     const [accType,setAccType] = React.useState("")
+    const [errors,setErrors] = React.useState("")
+    const [isErr,setIsErr] = React.useState(false)
 
     const [isLoading,setIsLoading] = React.useState(false)
+
+    function handleErrors(err){
+        setErrors(err)
+    }
 
     function handleSubmit(e){
         e.preventDefault()
@@ -34,9 +40,12 @@ export default function(){
 		axios.post('http://localhost:8080/signup', reqObj, axiosConfig)
 			.then((res) => {
 				if(res.data.success === false){
-                    alert(res.data.message)
+                    setErrors(res.data.message)
+                    setIsErr(true)
                 }else{
                     alert(res.data.message)
+                    setErrors("")
+                    setIsErr(false)
                     document.cookie = `jwt=${res.data.token}`;
                 }
 			})
@@ -75,6 +84,9 @@ export default function(){
             handlePassword={handlePassword}
             handleCity={handleCity}
             handleAccType={handleAccType}
+            errors={errors}
+            isErr={isErr}
+            isLoading={isLoading}
         />
     )
 }
