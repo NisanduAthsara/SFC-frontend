@@ -27,7 +27,7 @@ export default function(){
 		axios.post('http://localhost:8080/getUserId', reqObj, axiosConfig)
 			.then((res) => {
 				if(res.data.success === false){
-                    document.cookie = `jwt=`;
+                    document.cookie = `jwt=;path=/`;
                     setToken("")
                 }else{
                     setUserId(res.data.id)
@@ -55,7 +55,6 @@ export default function(){
 				if(res.data.success === false){
                     setUserId("")
                 }else{
-                    console.log(res.data.user)
                     if(res.data.user.accountType == 'Buyer'){
                         window.location.assign('/buyer/profile')
                     }
@@ -86,10 +85,10 @@ export default function(){
 			.then((res) => {
 				if(res.data.success === false){
                     alert(res.data.message)
-                    document.cookie = `jwt=`;
+                    document.cookie = `jwt=;path=/`;
                 }else{
                     alert(res.data.message)
-                    document.cookie = `jwt=${res.data.token}`;
+                    document.cookie = `jwt=${res.data.token};path=/`;
                 }
 
                 if(document.cookie.length > 1){

@@ -4,26 +4,28 @@ import ProfileUI from './ProfileUI'
 
 export default function Profile(){
     const [user,setUser] = React.useState({})
-    const [token,setToken] = React.useState("")
-    const [userId,setUserId] = React.useState("")
+    const [token,setToken] = React.useState(null)
+    const [userId,setUserId] = React.useState(null)
 
     let axiosConfig = {
         headers: {
             'Content-Type': 'application/json'
         }
-    };
+    };   
 
-    if(document.cookie.length > 1){
-        const myArray = document.cookie.split("=");
-        setToken(myArray[1])
-    }
+    React.useEffect(()=>{
+        if(document.cookie.length > 1){
+            const myArray = document.cookie.split("=");
+            setToken(myArray[1])
+        }
+    },[0])
 
     React.useEffect(()=>{
         const reqObj = {
             token
         }
 
-        axios.post('http://localhost:8080/checkUserToken', reqObj, axiosConfig)
+        token !== null && axios.post('http://localhost:8080/checkUserToken', reqObj, axiosConfig)
 			.then((res) => {
 				if(res.data.success === false){
                     alert(res.data.message)
@@ -34,11 +36,11 @@ export default function Profile(){
 				console.log("AXIOS ERROR: ", err);
 			})
 
-		axios.post('http://localhost:8080/getUserId', reqObj, axiosConfig)
+        token !== null && axios.post('http://localhost:8080/getUserId', reqObj, axiosConfig)
 			.then((res) => {
 				if(res.data.success === false){
-                    document.cookie = `jwt=`;
-                    setToken("")
+                    alert(res.data.message)
+                    window.location.assign("/")
                 }else{
                     setUserId(res.data.id)
                 }
@@ -51,16 +53,17 @@ export default function Profile(){
 
     React.useEffect(()=>{
         const reqObj = {
-            token
+            token,
+            id:userId
         }
 
-		axios.post('http://localhost:8080/getUser', reqObj, axiosConfig)
+		userId !== null &&axios.post('http://localhost:8080/getUser', reqObj, axiosConfig)
 			.then((res) => {
 				if(res.data.success === false){
-                    document.cookie = `jwt=`;
+                    alert(res.data.message)
+                    window.location.assign("/")
                 }else{
                     setUser(res.data.user)
-                    console.log(res.data.user)
                 }
 			})
 			.catch((err) => {
