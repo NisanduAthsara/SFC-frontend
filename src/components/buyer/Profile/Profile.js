@@ -16,7 +16,7 @@ export default function Profile(){
     React.useEffect(()=>{
         if(document.cookie.length > 1){
             const myArray = document.cookie.split("=");
-            setToken(myArray[1])
+            setToken(myArray[2])
         }
     },[0])
 
@@ -30,7 +30,7 @@ export default function Profile(){
 				if(res.data.success === false){
                     alert(res.data.message)
                     window.location.assign("/")
-                }
+                }    
 			})
 			.catch((err) => {
 				console.log("AXIOS ERROR: ", err);
@@ -71,7 +71,6 @@ export default function Profile(){
 			})
 
     },[userId])
-
 
     return(
         <ProfileUI
