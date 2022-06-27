@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import SignUpUI from './SignUpUI'
+import {setCookie} from 'react-cookie'
 
 export default function(){
 
@@ -46,7 +47,8 @@ export default function(){
                     alert(res.data.message)
                     setErrors("")
                     setIsErr(false)
-                    document.cookie = `jwt=${res.data.token}`;
+                    // document.cookie = `jwt=${res.data.token}`;
+                    setCookie('jwt',res.data.token)
                 }
 			})
 			.catch((err) => {

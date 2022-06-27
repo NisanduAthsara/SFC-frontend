@@ -59,7 +59,7 @@ export default function(){
                         window.location.assign('/buyer/profile')
                     }
                     else if(res.data.user.accountType == 'Seller'){
-                        window.location.assign('/buyer/profile')
+                        window.location.assign('/seller/profile')
                     }
                 }
 			})

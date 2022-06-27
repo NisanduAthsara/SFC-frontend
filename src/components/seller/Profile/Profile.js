@@ -30,7 +30,7 @@ export default function Profile(){
             token
         }
 
-        token !== null && axios.post('http://localhost:8080/checkUserToken', reqObj, axiosConfig)
+        token !== null && axios.post('http://localhost:8080/checkSellerToken', reqObj, axiosConfig)
 			.then((res) => {
 				if(res.data.success === false){
                     alert(res.data.message)
