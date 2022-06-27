@@ -4,6 +4,8 @@ import {Link} from 'react-router-dom'
 export default function ProfileUI(props){
     return (
         <div>
+            {props.isOrg && <Link to="/organization/profile">View Organization</Link>}
+            {!props.isOrg && <Link to="/organization/signup">Signup Organization</Link>}
             {props.isDelOn && <div>
                 <div>Are you sure to delete</div>
                 <button onClick={props.handleAccDel}>Yes</button>  

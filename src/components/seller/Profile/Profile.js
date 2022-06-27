@@ -10,6 +10,7 @@ export default function Profile(){
     const [isDelOn,setIsDelOn] = React.useState(false)
     const [isAccDel,setIsAccDel] = React.useState(false)
     const [isLogOut,setIsLogOut] = React.useState(false)
+    const [isOrg,setIsOrg] = React.useState(false)
     const [cookies, setCookie,removeCookie] = useCookies(['jwt']);
 
     let axiosConfig = {
@@ -75,6 +76,22 @@ export default function Profile(){
 				console.log("AXIOS ERROR: ", err);
 			})
 
+        const secReqObj = {
+            token,
+            userId
+        }    
+         
+        userId !== null && axios.post('http://localhost:8080/findOrg',userId,axiosConfig)
+            .then((res)=>{
+                if(res.data.success === false){
+                    if(res.data.message === 'Haven\'t an organization...!'){
+                        setIsOrg(false)
+                    }
+                }else{
+                    setIsOrg(true)
+                }    
+            })    
+
     },[userId])
 
     React.useEffect(()=>{
@@ -129,6 +146,7 @@ export default function Profile(){
             handleDelOn={handleDelOn}
             handleAccDel={handleAccDel}
             handleLogout={handleLogout}
+            isOrg={isOrg}
         />
     )
 }
