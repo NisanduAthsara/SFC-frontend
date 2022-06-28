@@ -4,9 +4,9 @@ export default function SignupUI(props){
     return (
         <div>
             <form>
-                <input type="text"/>
-                <input type="text"/>
-                <select>
+                <input type="text" onChange={(e)=>props.handleName(e)}/>
+                <input type="text" onChange={(e)=>props.handleContact(e)}/>
+                <select onChange={(e)=>props.handleCity(e)}>
                     <option selected>--Select City--</option>
                     <option value="Kalutara">Kalutara</option>
                     <option value="Colombo">Colombo</option>
@@ -34,16 +34,16 @@ export default function SignupUI(props){
                     <option value="Trincomalee">Trincomalee</option>
                     <option value="Vavuniya">Vavuniya</option>
                 </select>
-                <select>
+                <select onChange={(e)=>props.handleSellItem(e)}>
                     <option>--Select Selling Item Type--</option>
                     <option value="fuel">Fuel</option>
                     <option value="gas">Gas</option>
                     <option value="milk powder">Milk Powder</option>
                 </select>
-                <input type="text"/>
-                <input type="text"/>
-                <input type="file"/>
-                <button>Sign Up</button>
+                <input type="text" onChange={(e)=>props.handleAddress(e)}/>
+                <input type="text" onChange={(e)=>props.handleOpeningHours(e)}/>
+                <input type="file" onChange={(e)=>props.handleImgFile(e)}/>
+                <button onClick={(e)=>props.handleSubmit(e)}>Sign Up</button>
             </form>
         </div>
     )
