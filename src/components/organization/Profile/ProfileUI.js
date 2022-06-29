@@ -5,7 +5,7 @@ export default function ProfileUI(props){
     return(
         <div>
             <Link to="/seller/profile">Back</Link>
-
+            <Link to="/organization/profile/update">Update</Link>
             {props.isDelOn && <div>
                 <div>Are you sure to delete</div>
                 <button onClick={props.handleAccDel}>Yes</button>  

@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { useCookies} from "react-cookie";
+import { getStorage, ref, deleteObject } from "firebase/storage";
 import ProfileUI from './ProfileUI'
 
 export default function Profile(){
@@ -157,7 +158,17 @@ export default function Profile(){
                         alert(res.data.message)
                         window.location.assign("/seller/profile")
                     }else{
-                        window.location.assign("/seller/profile")
+                        const storage = getStorage();
+                        const desertRef = ref(storage, organization.imgLink);
+
+                        deleteObject(desertRef).then(() => {
+                            removeCookie('orgJwt')
+                            alert('Successfully deleted organization!')
+                            window.location.assign("/seller/profile")
+                        }).catch((error) => {
+                            alert('Something went wrong!')
+                            window.location.assign("/seller/profile")
+                        });
                     }
                 })
                 .catch((err) => {

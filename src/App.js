@@ -7,6 +7,7 @@ import SellerProfile from './components/seller/Profile/Profile'
 import SellerUpdate from './components/seller/Profile/Update/Update'
 import OrganizationSignup from './components/organization/signup/Signup'
 import OrganizationProfile from './components/organization/Profile/Profile'
+import OrganizationUpdate from './components/organization/Profile/Update/Update'
 import { CookiesProvider } from "react-cookie";
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
 
@@ -25,6 +26,7 @@ export default function App(){
                 <Route path='/seller/profile/update' element={<SellerUpdate/>}/>
                 <Route path='/organization/signup' element={<OrganizationSignup/>}/>
                 <Route path='/organization/profile' element={<OrganizationProfile/>}/>
+                <Route path='/organization/profile/update' element={<OrganizationUpdate/>}/>
             </Routes>
         </BrowserRouter>
         </CookiesProvider>
