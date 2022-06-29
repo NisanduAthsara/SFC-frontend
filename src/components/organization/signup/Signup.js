@@ -90,13 +90,17 @@ export default function Signup(){
 
     React.useEffect(()=>{
         if(isSubmit == false) return;
+        const imageTypes = ['image/jpeg','image/png','image/jpg']
+        //console.log(imgFile.type)
+        if(!imageTypes.includes(imgFile.type)){
+            alert('invalid file type')
+            return
+        }
         const imageRef = ref(storage,`image/${imgFile.name+v4()}`)
         uploadBytes(imageRef,imgFile).then((res)=>{
             alert('Image uploaded')
-            //console.log(res.ref)
             getDownloadURL(res.ref).then((response)=>{
                 setImgLink(response)
-                console.log(response)
             })
         })
     },[isSubmit])

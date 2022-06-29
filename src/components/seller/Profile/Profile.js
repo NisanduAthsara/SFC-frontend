@@ -11,7 +11,7 @@ export default function Profile(){
     const [isAccDel,setIsAccDel] = React.useState(false)
     const [isLogOut,setIsLogOut] = React.useState(false)
     const [isOrg,setIsOrg] = React.useState(false)
-    const [cookies, setCookie,removeCookie] = useCookies(['jwt']);
+    const [cookies, setCookie,removeCookie] = useCookies(['jwt','orgJwt']);
 
     let axiosConfig = {
         headers: {
@@ -119,6 +119,7 @@ export default function Profile(){
     React.useEffect(()=>{
         if(isLogOut){
             removeCookie('jwt',{path:'/'})
+            removeCookie('orgJwt',{path:'/'})
             window.location.assign('/')
         }
     },[isLogOut])

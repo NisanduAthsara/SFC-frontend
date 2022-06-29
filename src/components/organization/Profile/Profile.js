@@ -10,6 +10,8 @@ export default function Profile(){
     const [orgToken,setOrgToken] = React.useState(null)
     const [userId,setUserId] = React.useState(null)
     const [orgId,setOrgId] = React.useState(null)
+    const [isDelOn,setIsDelOn] = React.useState(false)
+    const [isAccDel,setIsAccDel] = React.useState(false)
     const [cookies, setCookie,removeCookie] = useCookies(['jwt','orgJwt']);
 
     let axiosConfig = {
@@ -142,6 +144,38 @@ export default function Profile(){
 
     },[orgId])
 
+    React.useEffect(()=>{
+        if(orgToken !== null){
+            const reqObj = {
+                token:orgToken,
+                orgId
+            }
+    
+            isAccDel === true && axios.delete('http://localhost:8080/deleteOrg', {data:reqObj}, axiosConfig)
+                .then((res) => {
+                    if(res.data.success === false){
+                        alert(res.data.message)
+                        window.location.assign("/seller/profile")
+                    }else{
+                        window.location.assign("/seller/profile")
+                    }
+                })
+                .catch((err) => {
+                    console.log("AXIOS ERROR: ", err);
+                })
+        }
+    },[isAccDel])
+
+    function handleDelOn(){
+        setIsDelOn((prev)=>{
+            return !prev
+        })
+    }
+
+    function handleAccDel(){
+        setIsAccDel(true)
+    }
+
 
     return(
         <ProfileUI
@@ -150,6 +184,9 @@ export default function Profile(){
             city={organization.city}
             address={organization.address}
             imgLink={organization.imgLink}
+            isDelOn={isDelOn}
+            handleDelOn={handleDelOn}
+            handleAccDel={handleAccDel}
         />
     )
 }
