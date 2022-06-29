@@ -81,7 +81,7 @@ export default function Profile(){
             userId
         }    
          
-        userId !== null && axios.post('http://localhost:8080/findOrg',userId,axiosConfig)
+        userId !== null && axios.post('http://localhost:8080/findOrg',secReqObj,axiosConfig)
             .then((res)=>{
                 if(res.data.success === false){
                     if(res.data.message === 'Haven\'t an organization...!'){
