@@ -13,6 +13,7 @@ export default function Profile(){
     const [orgId,setOrgId] = React.useState(null)
     const [isDelOn,setIsDelOn] = React.useState(false)
     const [isAccDel,setIsAccDel] = React.useState(false)
+    const [products,setProducts] = React.useState(null)
     const [cookies, setCookie,removeCookie] = useCookies(['jwt','orgJwt']);
 
     let axiosConfig = {
@@ -129,7 +130,7 @@ export default function Profile(){
             id:orgId
         }
 
-		orgId !== null &&axios.post('http://localhost:8080/getOrgById', reqObj, axiosConfig)
+		orgId !== null && axios.post('http://localhost:8080/getOrgById', reqObj, axiosConfig)
 			.then((res) => {
 				if(res.data.success === false){
                     alert(res.data.message)
@@ -142,6 +143,27 @@ export default function Profile(){
 			.catch((err) => {
 				console.log("AXIOS ERROR: ", err);
 			})
+
+        const reqObj2 = {
+            token:orgToken,
+            orgId
+        }
+
+        orgId !== null && axios.post('http://localhost:8080/findProducts', reqObj2, axiosConfig)
+			.then((res) => {
+				if(res.data.success === false){
+                    alert(res.data.message)
+                    window.location.assign("/")
+                    console.log(res.data.message)
+                }else if(res.data.message === 'No Products...!'){
+                    setProducts(null)
+                }else{
+                    setProducts(res.data.products)
+                }
+			})
+			.catch((err) => {
+				console.log("AXIOS ERROR: ", err);
+			})    
 
     },[orgId])
 
@@ -196,6 +218,7 @@ export default function Profile(){
             address={organization.address}
             imgLink={organization.imgLink}
             isDelOn={isDelOn}
+            products={products}
             handleDelOn={handleDelOn}
             handleAccDel={handleAccDel}
         />

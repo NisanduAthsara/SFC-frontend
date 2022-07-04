@@ -4,6 +4,7 @@ import { useState } from 'react'
 export default function UpdateUI(props){
     const {name,contact,city,sellItem,address,openingHours,imgLink} = props
     const [isChange,setIsChange] = useState(false)
+    const url = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThRGcLNaorK4esT7jd4P_MfhhrzowqyTHRqA8Ku2vZW7KNrswJYoA0CcmhlTTPsWSQZ5I&usqp=CAU'
 
     function handleChange(){
         setIsChange((prev)=>{
@@ -58,7 +59,7 @@ export default function UpdateUI(props){
                     </form>
                     <div>
                         <img src={imgLink} width="80" height="80"/>
-                        {imgLink !== null && <button onClick={props.handleRemoveImage}>Remove Image</button>}
+                        {imgLink !== url &&<div>{imgLink !== null && <button onClick={props.handleRemoveImage}>Remove Image</button>}</div>}
                         {!isChange && <button onClick={handleChange}>Change Image</button>}
                         {isChange && <div>
                             <input type="file" onChange={props.handleImage}/>

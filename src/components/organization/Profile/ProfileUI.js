@@ -19,6 +19,13 @@ export default function ProfileUI(props){
             <h2>{props.city}</h2>
             <h2>{props.address}</h2>
             <img src={props.imgLink} width="90" height="90"/>
+            <div>
+                {props.products !== null && props.products}
+                {props.products === null && <div>
+                    <h1>No Products</h1>
+                    <Link to='/addProducts'>Add New Product</Link>
+                </div>}
+            </div>
         </div>
     )
 }

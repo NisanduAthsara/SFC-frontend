@@ -127,8 +127,8 @@ export default function Update(){
         const desertRef = ref(storage, imgLink);
 
         deleteObject(desertRef).then(() => {
-            alert('Successfully Deleted Image!')
-            setImgLink('')
+            setImgLink('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThRGcLNaorK4esT7jd4P_MfhhrzowqyTHRqA8Ku2vZW7KNrswJYoA0CcmhlTTPsWSQZ5I&usqp=CAU')
+            setIsSubmitOn(true)
         }).catch((error) => {
             alert('Something went wrong!')
         });
@@ -164,7 +164,7 @@ export default function Update(){
         // const storageFirebase = getStorage();
         // const desertRef = ref(storageFirebase, imgLink);
 
-        if(imgLink.length > 1){
+        if(imgLink.length < 1){
             setImgLink(null)
         }
 
@@ -197,34 +197,37 @@ export default function Update(){
 
     React.useEffect(()=>{
         console.log(imgLink)
-        const reqObj = {
-            name,
-            contactNo:contact,
-            userId,
-            city,
-            sellItem,
-            address,
-            openingHours,
-            imgLink,
-            orgId,
-            token:orgToken,
-            accountType
+        if(isSubmitOn){
+            const reqObj = {
+                name,
+                contactNo:contact,
+                userId,
+                city,
+                sellItem,
+                address,
+                openingHours,
+                imgLink,
+                orgId,
+                token:orgToken,
+                accountType
+            }
+    
+            imgLink !== null && axios.put('http://localhost:8080/updateOrg', reqObj, axiosConfig)
+                .then((res) => {
+                    if(res.data.success === false){
+                        console.log(reqObj)
+                        console.log(res.data.message)
+                        // alert(res.data.message)
+                        window.location.assign('/organization/profile')
+                    }else{
+                        window.location.assign('/organization/profile')
+                        alert(res.data.message)
+                    }
+                })
+                .catch((err) => {
+                    console.log("AXIOS ERROR: ", err);
+                })
         }
-
-        isSubmitOn === true && axios.put('http://localhost:8080/updateOrg', reqObj, axiosConfig)
-            .then((res) => {
-                if(res.data.success === false){
-                    console.log(reqObj)
-                    console.log(res.data.message)
-                    // alert(res.data.message)
-                }else{
-                    console.log('done')
-                    alert(res.data.message)
-                }
-            })
-            .catch((err) => {
-                console.log("AXIOS ERROR: ", err);
-            })
     },[isSubmitOn])
 
     function handleChangeSubmit(e){
