@@ -7,6 +7,7 @@ export default function ProfileUI(props){
         products = props.products.map((product)=>{
             return <div>
                 <h1>{product.productName}</h1>
+                <Link to={`/product/update?q=${product._id}`}>Update</Link>
             </div>
         })
     }
@@ -28,7 +29,10 @@ export default function ProfileUI(props){
             <h2>{props.address}</h2>
             <img src={props.imgLink} width="90" height="90"/>
             <div>
-                {props.products !== null && products}
+                {props.products !== null && <div>
+                    {products}
+                    {props.products.length <= 10 && <Link to='/addProducts'>Add New Product</Link>}
+                </div>}
                 {props.products === null && <div>
                     <h1>No Products</h1>
                     <Link to='/addProducts'>Add New Product</Link>

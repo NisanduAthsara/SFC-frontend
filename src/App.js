@@ -9,6 +9,7 @@ import OrganizationSignup from './components/organization/signup/Signup'
 import OrganizationProfile from './components/organization/Profile/Profile'
 import OrganizationUpdate from './components/organization/Profile/Update/Update'
 import ProductSignup from './components/products/signup/Signup'
+import UpdateProduct from './components/products/update/Update'
 import { CookiesProvider } from "react-cookie";
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
 
@@ -29,6 +30,7 @@ export default function App(){
                 <Route path='/organization/profile' element={<OrganizationProfile/>}/>
                 <Route path='/organization/profile/update' element={<OrganizationUpdate/>}/>
                 <Route path='/addProducts' element={<ProductSignup/>}/>
+                <Route path='/product/update' element={<UpdateProduct/>}/>
             </Routes>
         </BrowserRouter>
         </CookiesProvider>
