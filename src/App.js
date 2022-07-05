@@ -8,7 +8,7 @@ import SellerUpdate from './components/seller/Profile/Update/Update'
 import OrganizationSignup from './components/organization/signup/Signup'
 import OrganizationProfile from './components/organization/Profile/Profile'
 import OrganizationUpdate from './components/organization/Profile/Update/Update'
-import ProductSignup from './components/products/signup/SignupUI'
+import ProductSignup from './components/products/signup/Signup'
 import { CookiesProvider } from "react-cookie";
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
 
