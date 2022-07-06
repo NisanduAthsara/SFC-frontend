@@ -14,6 +14,7 @@ export default function Profile(){
     const [isDelOn,setIsDelOn] = React.useState(false)
     const [isAccDel,setIsAccDel] = React.useState(false)
     const [products,setProducts] = React.useState(null)
+    const [productId,setProductId] = React.useState(null)
     const [cookies, setCookie,removeCookie] = useCookies(['jwt','orgJwt']);
 
     let axiosConfig = {
@@ -199,10 +200,37 @@ export default function Profile(){
         }
     },[isAccDel])
 
+    React.useEffect(()=>{
+        const reqObj = {
+            token:orgToken,
+            productId
+        }
+        productId !== null && axios.delete('http://localhost:8080/deleteProduct', {data:reqObj}, axiosConfig)
+            .then((res)=>{ 
+                if(res.data.success === false){
+                    alert(res.data.message)
+                    window.location.assign("/seller/profile")
+                }else{
+                    alert(res.data.message)
+                    const updatedArr = products.filter((product)=>{
+                        return product._id !== productId
+                    })
+                    setProducts(updatedArr)
+                }
+            })
+            .catch((err) => {
+                console.log("AXIOS ERROR: ", err);
+            })
+    },[productId])
+
     function handleDelOn(){
         setIsDelOn((prev)=>{
             return !prev
         })
+    }
+
+    function handleProductId(id){
+        setProductId(id)
     }
 
     function handleAccDel(){
@@ -221,6 +249,7 @@ export default function Profile(){
             products={products}
             handleDelOn={handleDelOn}
             handleAccDel={handleAccDel}
+            handleProductId={handleProductId}
         />
     )
 }

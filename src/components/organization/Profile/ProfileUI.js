@@ -1,14 +1,21 @@
 import React from 'react'
+import Product from './Product'
 import {Link} from 'react-router-dom'
 
 export default function ProfileUI(props){
     let products
     if(props.products !== null){
         products = props.products.map((product)=>{
-            return <div>
-                <h1>{product.productName}</h1>
-                <Link to={`/product/update?q=${product._id}`}>Update</Link>
-            </div>
+            // return <div>
+            //     <h1>{product.productName}</h1>
+            //     <Link to={`/product/update?q=${product._id}`}>Update</Link>
+            //     <button onClick={()=>props.handleProductId(product._id)}>Delete</button>
+            // </div>
+            return <Product
+                productName={product.productName}
+                id={product._id}
+                handleProductId={props.handleProductId}
+            />
         })
     }
     return(
